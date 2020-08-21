@@ -7,10 +7,10 @@
 
 class Motor{
 private:
-    int motorPin[2];
+    int motorPin[2]{};
 
 public:
-    Motor(int*);
+    Motor(const int*);
     void Move(int);
     void Stop();
 
@@ -18,7 +18,6 @@ public:
 
 class Drive{
 private:
-    int motorPin[2][2];
     Motor* leftMotor;
     Motor* rightMotor;
 

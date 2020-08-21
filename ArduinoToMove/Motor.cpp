@@ -6,7 +6,7 @@
 #include <Arduino.h>
 
 
-Motor::Motor(int *pin) {
+Motor::Motor(const int *pin) {
     for (int i = 0; i < 2; ++i) {
         motorPin[i] = *(pin + i);
     }
