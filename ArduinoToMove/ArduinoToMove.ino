@@ -1,26 +1,25 @@
 #include "Motor.h"
 #include <Arduino.h>
-Motor* motor;
+
+Drive *drive;
+Motor *chainMotor;
+
 extern HardwareSerial Serial;
+
+int run = 150;
 
 void setup(){
     Serial.begin(115200);
-    int pin[2] = {8,9};
-    motor = new Motor(pin);
-    motor->Move(255);
+    int pin[3][2] = {{2,3},{5,4},{6,7}};
+    drive = new Drive(pin[0],pin[1]);
+    chainMotor = new Motor(pin[2]);
 }
 
 void loop(){
-    motor->Move(255);
-    Serial.println("うごけー！");
-    delay(1000);
-    motor->Move(0);
-    Serial.println("とまれー！");
-    delay(1000);
-    motor->Move(-255);
-    Serial.println("もどれー！");
-    delay(1000);
-    motor->Stop();
-    Serial.println("すとーっぷ！");
-    delay(1000);
+    drive->Move(255,255);
+    delay(1500);
+    drive->Move(255,-255);
+    delay(3000);
+
+
 }

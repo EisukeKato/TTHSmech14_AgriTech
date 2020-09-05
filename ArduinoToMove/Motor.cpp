@@ -10,6 +10,7 @@ Motor::Motor(const int *pin) {
     for (int i = 0; i < 2; ++i) {
         motorPin[i] = *(pin + i);
     }
+    Move(0);
 }
 
 void Motor::Move(int speed) {
