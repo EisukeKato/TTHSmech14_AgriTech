@@ -15,11 +15,12 @@ byte val = 0;
 void movePlatform();
 int microSW();
 void moveIntakeArm(bool a);
+void movePlatform();
 
-const bool test = false;
+const bool test = true;
 
 int pin[3][2] = {{2,3},{5,4},{6,7}};
-int pin_rotServo[2] = {0,0};
+int pin_rotServo[2] = {10,11};
 int pin_intakeServo[2] = {8,9};
 int pin_switch[2] = {15,16};
 int pin_Intake = 14;
@@ -31,9 +32,11 @@ int swTime = 0;
 
 void setup(){
     Serial.begin(115200);
-    for (int i = 3; i >= 1; --i) {
-        Serial.println(i);
-        delay(1000);
+    if (test) {
+        for (int i = 3; i >= 1; --i) {
+            Serial.println(i);
+            delay(1000);
+        }
     }
 
     pinMode(pin_Intake,INPUT_PULLUP);
@@ -42,6 +45,8 @@ void setup(){
     platform = new Platform(pin_rotServo, pin_switch);
     intake = new Intake(pin_intakeServo);
     intake->pull();
+    platform->Down();
+    platform->Move(0);
 }
 
 void loop(){
@@ -74,7 +79,7 @@ void loop(){
 
         else if(val == 'i'){//回収
             drive->Move(150,150);
-            moveIntakeArm(true);                      
+            moveIntakeArm(true);
             Serial.println("うごけー！");
         }
         else if(val == 's'){//停止
@@ -96,13 +101,9 @@ void loop(){
         }
 
     } else{
-
-//        drive->Move(150,150);
-        moveIntakeArm(false);
-//        intake->pull();
-//        delay(4000);
-//        intake->push();
-//        delay(4000);
+//        drive->Move(200,200);
+        movePlatform();
+        delay(3000);
     }
                 
 }
@@ -151,4 +152,22 @@ void moveIntakeArm(bool a){//true:move false stop
             swTime = 0;
         }
     }
+}
+
+void movePlatform(){
+    platform->Move(10);
+    delay(1500);
+    platform->Move(0);
+
+    drive->Move(-200,-200);
+    delay(1500);
+    drive->Move(0,0);
+    delay(500);
+    drive->Move(200,200);
+    delay(2000);
+    drive->Move(0,0);
+
+    platform->Down();
+    platform->Move(0);
+    delay(1000);
 }

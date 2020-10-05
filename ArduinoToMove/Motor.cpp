@@ -76,7 +76,10 @@ void Platform::Stop() {
 }
 
 void Platform::Down() {
-    while (switchPin[0]||switchPin[1]) Move(-3);
+    Serial.println((String)digitalRead(switchPin[0]) + "," + (String)digitalRead(switchPin[1]));
+    while (!digitalRead(switchPin[0])) {
+        Move(-10);
+    }
     Move(1); delay(500);
     Move(0);
 }
