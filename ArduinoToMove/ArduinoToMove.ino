@@ -32,12 +32,12 @@ int swTime = 0;
 
 void setup(){
     Serial.begin(115200);
-    if (test) {
-        for (int i = 3; i >= 1; --i) {
-            Serial.println(i);
-            delay(1000);
-        }
-    }
+//    if (test) {
+//        for (int i = 3; i >= 1; --i) {
+//            Serial.println(i);
+//            delay(1000);
+//        }
+//    }
 
     pinMode(pin_Intake,INPUT_PULLUP);
     drive = new Drive(pin[0],pin[1]);
@@ -61,22 +61,18 @@ void loop(){
             drive->Move(255,245);
             Serial.println("うごけー！");
         }
-
         else if(val == 'b'){//後退
             drive->Move(-255,-245);
             Serial.println("うごけー！");
         }
-
         else if(val == 'l'){//左
             drive->Move(-255,245);
             Serial.println("うごけー！");
         }
-
         else if(val == 'r'){//右
             drive->Move(255,-245);
             Serial.println("うごけー！");
         }
-
         else if(val == 'i'){//回収
             drive->Move(150,150);
             moveIntakeArm(true);
@@ -90,6 +86,7 @@ void loop(){
         else if(val == 'p'){//荷台
             drive->Move(0,0);
             chainMotor->Move(0);
+            movePlatform();
             Serial.println("とまれー！");
         }
         else if(val == 'o'){
@@ -102,8 +99,7 @@ void loop(){
 
     } else{
 //        drive->Move(200,200);
-        movePlatform();
-        delay(3000);
+        moveIntakeArm(true);
     }
                 
 }
@@ -140,10 +136,10 @@ void moveIntakeArm(bool a){//true:move false stop
         while (microSW());
         if(swTime == 1) {
             if (a){
-                drive->Move(75,75);
+//                drive->Move(150,150);
             }
             delay(750);
-            chainMotor->Stop();
+            chainMotor->Move(0);
             intake->push();
             delay(2500);
             intake->pull();
