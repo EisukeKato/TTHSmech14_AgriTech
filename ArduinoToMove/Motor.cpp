@@ -1,7 +1,3 @@
-//
-// Created by 加藤英祐 on 2020/08/20.
-//
-
 #include "Motor.h"
 #include <Arduino.h>
 
