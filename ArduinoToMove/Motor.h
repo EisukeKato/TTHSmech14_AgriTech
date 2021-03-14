@@ -1,7 +1,3 @@
-//
-// Created by 加藤英祐 on 2020/08/20.
-//
-
 #ifndef ARDUINOTOMOVE_MOTOR_H
 #define ARDUINOTOMOVE_MOTOR_H
 
